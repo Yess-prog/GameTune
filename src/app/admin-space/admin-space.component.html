@@ -1,0 +1,94 @@
+<nav class="gradient-bg text-white shadow-lg">
+    <div class="container mx-auto px-4 py-3">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="#" class="flex items-center space-x-2">
+                    <i class="fas fa-gamepad text-2xl"></i>
+                    <span class="text-xl font-bold">GameTun ADMIN</span>
+                </a>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-6">
+                <a routerLink='/admin' routerLinkActive="router-link-active"  class="hover:text-blue-200 transition">Home</a>
+
+                <button (click)="toggleGetion()" class="hover:text-blue-200 transition">Gestion des Jeux</button>
+               
+                  
+                <button  (click)="toggleVente()" class="hover:text-blue-200 transition">Ventes</button>
+                
+                
+                  
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                
+                
+                <div class="relative group">
+                    <button class="flex items-center space-x-2 hover:text-blue-200 transition">
+                      <div class="w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center">
+                        <i class="fas fa-user text-blue-800"></i>
+                      </div>
+                      <span class="hidden md:inline">Account</span>
+                    </button>
+                  
+                    <div class="absolute right-0 mt-1 bg-white text-gray-800 rounded shadow-lg py-2 w-48 hidden group-hover:flex flex-col z-50">
+                      <a routerLink='/login' routerLinkActive="router-link-active"  class="block px-4 py-2 hover:bg-gray-100" id="login-btn">Login</a>
+                      <a routerLink='/register' class="block px-4 py-2 hover:bg-gray-100" id="register-btn">Register</a>
+                      <div id="user-menu" class="hidden">
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">My Games</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  
+            </div>
+        </div>
+        </div></nav>
+    <div class="mt-3">
+        <div *ngIf="gestion">
+            <table>
+                <tr>
+                    <td>
+                        a
+                    </td>
+                    <td>
+                        a
+                    </td>
+                    <td>
+                        a
+                    </td>
+                    <td>
+                        a
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div *ngIf="vente">
+            <table>
+                <tr>
+                    <td>
+                        b
+                    </td>
+                    <td>
+                        b
+                    </td>
+                    <td>
+                        b
+                    </td>
+                    <td>
+                        b
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    
+    
+        
+    
+
+    
+    
