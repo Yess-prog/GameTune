@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admin-space',
-  imports: [RouterLink,NgIf],
+  imports: [],
   templateUrl: './admin-space.component.html',
   styleUrl: './admin-space.component.css'
 })

@@ -1,103 +1,4 @@
-<nav class="gradient-bg text-white shadow-lg">
-    <div class="container mx-auto px-4 py-3">
-        <div class="flex justify-between items-center">
-            <div class="flex items-center space-x-4">
-                <a href="#" class="flex items-center space-x-2">
-                    <i class="fas fa-gamepad text-2xl"></i>
-                    <span class="text-xl font-bold">Tunisian Gaming Hub</span>
-                </a>
-            </div>
-            
-            <div class="hidden md:flex items-center space-x-6">
-                <a href="" class="hover:text-blue-200 transition">Home</a>
-                <a href="#games" class="hover:text-blue-200 transition">Games</a>
-                <div class="relative group">
-                    <button class="hover:text-blue-200 transition flex items-center">
-                      <span>Consoles</span>
-                      <i class="fas fa-chevron-down ml-1 text-sm"></i>
-                    </button>
-                  
-                    <div class="absolute right-0 mt-1 bg-white text-gray-800 rounded shadow-lg py-2 px-2 hidden group-hover:flex flex-col z-50">
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">PC</a>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">XBOX 360</a>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">XBOX ONE</a>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">PS4</a>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">PS5</a>
-                    </div>
-                  </div>
-                  
-                <a href="#about" class="hover:text-blue-200 transition">About</a>
-                
-                <div class="relative group">
-                    <button class="hover:text-blue-200 transition flex items-center">
-                      <span>Categories</span>
-                      <i class="fas fa-chevron-down ml-1 text-sm"></i>
-                    </button>
-                  
-                    <div class="absolute right-0 mt-1 bg-white text-gray-800 rounded shadow-lg py-2 px-2 hidden group-hover:flex flex-col z-50">
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Action</a>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Adventure</a>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">RPG</a>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Sports</a>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Strategy</a>
-                    </div>
-                  </div>
-                  
-            </div>
-            
-            <div class="flex items-center space-x-4">
-                <button id="cart-button" class="relative">
-                    <i class="fas fa-shopping-cart text-xl"></i>
-                    <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
-                </button>
-                
-                <div class="relative group">
-                    <button class="flex items-center space-x-2 hover:text-blue-200 transition">
-                      <div class="w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center">
-                        <i class="fas fa-user text-blue-800"></i>
-                      </div>
-                      <span class="hidden md:inline">Account</span>
-                    </button>
-                  
-                    <div class="absolute right-0 mt-1 bg-white text-gray-800 rounded shadow-lg py-2 w-48 hidden group-hover:flex flex-col z-50">
-                      <a routerLink='/login' routerLinkActive="router-link-active"  class="block px-4 py-2 hover:bg-gray-100" id="login-btn">Login</a>
-                      <a routerLink='/register' class="block px-4 py-2 hover:bg-gray-100" id="register-btn">Register</a>
-                      <div id="user-menu" class="hidden">
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">My Games</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
-                      </div>
-                    </div>
-                  </div>
-                  
-                
-                <button id="mobile-menu-button" class="md:hidden">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-    
-        <div id="mobile-menu" class="hidden md:hidden gradient-bg px-4 pb-4">
-            <a href="#" class="block py-2 hover:text-blue-200">Home</a>
-            <a href="#games" class="block py-2 hover:text-blue-200">Games</a>
-            <a href="#consoles" class="block py-2 hover:text-blue-200">Consoles</a>
-            <a href="#about" class="block py-2 hover:text-blue-200">About</a>
-            <div class="pt-2">
-                <button class="w-full text-left py-2 flex justify-between items-center" id="mobile-categories-btn">
-                    <span>Categories</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div id="mobile-categories" class="hidden pl-4">
-                    <a href="#" class="block py-2 hover:text-blue-200">Action</a>
-                    <a href="#" class="block py-2 hover:text-blue-200">Adventure</a>
-                    <a href="#" class="block py-2 hover:text-blue-200">RPG</a>
-                    <a href="#" class="block py-2 hover:text-blue-200">Sports</a>
-                    <a href="#" class="block py-2 hover:text-blue-200">Strategy</a>
-                </div>
-            </div>
-        </div>
-    
+
 
     <!-- Hero Section -->
     <section class="gradient-bg text-white py-16">
@@ -130,112 +31,37 @@
             </div>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-               
-                <div class="game-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
+                <div *ngFor="let game of games" class="game-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
                     <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1551103782-8ab07afd45c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Game Cover" class="w-full h-48 object-cover">
-                        <div class="absolute top-2 right-2 bg-yellow-500 text-white text-xs font-bold px-2 py-1 rounded flex items-center">
-                            <i class="fas fa-star mr-1"></i>
-                            <span>4.8</span>
-                        </div>
+                        <img [src]="game.img" alt="Game Cover" class="w-full h-48 object-cover">
                     </div>
                     <div class="p-4">
-                        <h3 class="font-bold text-lg mb-1">Epic Adventure</h3>
+                        <h3 class="font-bold text-lg mb-1">{{ game.nom }}</h3>
                         <div class="flex items-center text-gray-600 text-sm mb-2">
-                            <span>Action</span>
-                            <span class="mx-2">•</span>
-                            <span>PS5, Xbox</span>
+                            <span>{{ game.societe }}</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span class="font-bold text-blue-600">$49.99</span>
-                            <button class="add-to-cart bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition" data-id="1" data-name="Epic Adventure" data-price="49.99">
-                                <i class="fas fa-cart-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Game Card 2 -->
-                <div class="game-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Game Cover" class="w-full h-48 object-cover">
-                        <div class="absolute top-2 right-2 bg-yellow-500 text-white text-xs font-bold px-2 py-1 rounded flex items-center">
-                            <i class="fas fa-star mr-1"></i>
-                            <span>4.5</span>
-                        </div>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-1">Space Warriors</h3>
-                        <div class="flex items-center text-gray-600 text-sm mb-2">
-                            <span>Shooter</span>
-                            <span class="mx-2">•</span>
-                            <span>PC, Xbox</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-blue-600">$39.99</span>
-                            <button class="add-to-cart bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition" data-id="2" data-name="Space Warriors" data-price="39.99">
-                                <i class="fas fa-cart-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Game Card 3 -->
-                <div class="game-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1534423865186-dcd6b7b2b8a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Game Cover" class="w-full h-48 object-cover">
-                        <div class="absolute top-2 right-2 bg-yellow-500 text-white text-xs font-bold px-2 py-1 rounded flex items-center">
-                            <i class="fas fa-star mr-1"></i>
-                            <span>4.9</span>
-                        </div>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-1">Fantasy Kingdom</h3>
-                        <div class="flex items-center text-gray-600 text-sm mb-2">
-                            <span>RPG</span>
-                            <span class="mx-2">•</span>
-                            <span>PC, PS5, Switch</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-blue-600">$59.99</span>
-                            <button class="add-to-cart bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition" data-id="3" data-name="Fantasy Kingdom" data-price="59.99">
-                                <i class="fas fa-cart-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Game Card 4 -->
-                <div class="game-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300">
-                    <div class="relative">
-                        <img src="https://images.unsplash.com/photo-1511512578047-dba367496ab6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Game Cover" class="w-full h-48 object-cover">
-                        <div class="absolute top-2 right-2 bg-yellow-500 text-white text-xs font-bold px-2 py-1 rounded flex items-center">
-                            <i class="fas fa-star mr-1"></i>
-                            <span>4.2</span>
-                        </div>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-1">Racing Legends</h3>
-                        <div class="flex items-center text-gray-600 text-sm mb-2">
-                            <span>Racing</span>
-                            <span class="mx-2">•</span>
-                            <span>PS5, Xbox, PC</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-blue-600">$45.99</span>
-                            <button class="add-to-cart bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition" data-id="4" data-name="Racing Legends" data-price="45.99">
-                                <i class="fas fa-cart-plus"></i>
-                            </button>
+                            <span class="font-bold text-blue-600">{{ game.prix  }}</span>
+                            <button 
+    class="add-to-cart bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition" 
+    [attr.data-id]="game.idG" 
+    [attr.data-name]="game.nom" 
+    [attr.data-price]="game.prix">
+    <i class="fas fa-cart-plus"></i>
+</button>
+
                         </div>
                     </div>
                 </div>
             </div>
             
             <div class="text-center mt-8">
-                <button class="border-2 border-blue-600 text-blue-600 px-6 py-2 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition">View All Games</button>
+                <button routerLink='/games' class="border-2 border-blue-600 text-blue-600 px-6 py-2 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition">View All Games</button>
             </div>
         </div>
     </section>
+    
+    
 
     <!-- Top Rated Games -->
     <section class="py-12 bg-gray-100">

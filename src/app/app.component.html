@@ -1,1 +1,129 @@
+<nav class="gradient-bg text-white shadow-lg">
+    <div class="container mx-auto px-4 py-3">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="#" class="flex items-center space-x-2">
+                    <i class="fas fa-gamepad text-2xl"></i>
+                    <span class="text-xl font-bold">Tunisian Gaming Hub</span>
+                </a>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="" class="hover:text-blue-200 transition">Home</a>
+                <a routerLink='/games' class="hover:text-blue-200 transition">Games</a>
+                <div class="relative group">
+                    <button class="hover:text-blue-200 transition flex items-center">
+                      <span>Consoles</span>
+                      <i class="fas fa-chevron-down ml-1 text-sm"></i>
+                    </button>
+                  
+                    <div class="absolute right-0 mt-1 bg-white text-gray-800 rounded shadow-lg py-2 px-2 hidden group-hover:flex flex-col z-50">
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">PC</a>
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">XBOX 360</a>
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">XBOX ONE</a>
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">PS4</a>
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">PS5</a>
+                    </div>
+                  </div>
+                  
+                <a href="#about" class="hover:text-blue-200 transition">About</a>
+                
+                <div class="relative group">
+                    <button class="hover:text-blue-200 transition flex items-center">
+                      <span>Categories</span>
+                      <i class="fas fa-chevron-down ml-1 text-sm"></i>
+                    </button>
+                  
+                    <div class="absolute right-0 mt-1 bg-white text-gray-800 rounded shadow-lg py-2 px-2 hidden group-hover:flex flex-col z-50">
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Action</a>
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Adventure</a>
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">RPG</a>
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Sports</a>
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Strategy</a>
+                    </div>
+                  </div>
+                  
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <button id="cart-button" class="relative">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+                
+                <div class="relative group">
+                    <button class="flex items-center space-x-2 hover:text-blue-200 transition">
+                      <div class="w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center">
+                        <i class="fas fa-user text-blue-800"></i>
+                      </div>
+                      <span class="hidden md:inline">Account</span>
+                    </button>
+                  
+                    <div class="absolute right-0 mt-1 bg-white text-gray-800 rounded shadow-lg py-2 w-48 hidden group-hover:flex flex-col z-50">
+                      <a routerLink='/login' routerLinkActive="router-link-active"  class="block px-4 py-2 hover:bg-gray-100" id="login-btn">Login</a>
+                      <a routerLink='/register' class="block px-4 py-2 hover:bg-gray-100" id="register-btn">Register</a>
+                      <div id="user-menu" class="hidden">
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">My Games</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
+                      </div>
+                    </div>
+                  </div>
+                  
+                
+                <button id="mobile-menu-button" class="md:hidden">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+        <div id="mobile-menu" class="hidden md:hidden gradient-bg px-4 pb-4">
+            <a href="#" class="block py-2 hover:text-blue-200">Home</a>
+            <a routerLink='/games' class="block py-2 hover:text-blue-200">Games</a>
+            <a routerLink='/consoles' class="block py-2 hover:text-blue-200">Consoles</a>
+            <a href="#about" class="block py-2 hover:text-blue-200">About</a>
+            <div class="pt-2">
+                <button class="w-full text-left py-2 flex justify-between items-center" id="mobile-categories-btn">
+                    <span>Categories</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div id="mobile-categories" class="hidden pl-4">
+                    <a href="#" class="block py-2 hover:text-blue-200">Action</a>
+                    <a href="#" class="block py-2 hover:text-blue-200">Adventure</a>
+                    <a href="#" class="block py-2 hover:text-blue-200">RPG</a>
+                    <a href="#" class="block py-2 hover:text-blue-200">Sports</a>
+                    <a href="#" class="block py-2 hover:text-blue-200">Strategy</a>
+                </div>
+            </div>
+        </div>
+    
+
+
+
+
 <router-outlet></router-outlet>
+
+
+
+
+
+
+
+
+
+<footer class=" text-white py-6" style="position: absolute; bottom:0%; width:100%" style="background-color: #1e3a8a;">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center">
+        <div>
+          <p>&copy; 2025 GameTun. All rights reserved.</p>
+        </div>
+        <div class="space-x-4">
+          <a href="#" class="text-white hover:text-gray-400">Privacy Policy</a>
+          <a href="#" class="text-white hover:text-gray-400">Terms of Service</a>
+          <a href="#" class="text-white hover:text-gray-400">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
