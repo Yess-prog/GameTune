@@ -1,0 +1,43 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@300;400;500;700&display=swap');
+
+.pixel-font {
+    font-family: 'Press Start 2P', cursive;
+}
+
+.glow-text {
+    text-shadow: 0 0 10px purple, 0 0 20px purple;
+}
+
+.glow-box {
+    box-shadow: 0 0 15px purple;
+}
+
+.input-highlight {
+    transition: all 0.3s ease;
+}
+
+.input-highlight:focus {
+    box-shadow: 0 0 10px purple;
+    border-color: purple;
+}
+
+.btn-pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 red;
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(0, 255, 0, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 255, 0, 0);
+    }
+}
+
+.gamepad-icon {
+    transform: rotate(-15deg);
+}

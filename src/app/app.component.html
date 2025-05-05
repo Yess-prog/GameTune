@@ -18,11 +18,11 @@
                     </button>
                   
                     <div class="absolute right-0 mt-1 bg-white text-gray-800 rounded shadow-lg py-2 px-2 hidden group-hover:flex flex-col z-50">
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">PC</a>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">XBOX 360</a>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">XBOX ONE</a>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">PS4</a>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">PS5</a>
+                      <a routerLink="/pc" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap" >PC</a>
+                      <a routerLink="/x360" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">XBOX 360</a>
+                      <a routerLink="/x1" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">XBOX ONE</a>
+                      <a routerLink="/ps4" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">PS4</a>
+                      <a routerLink="/ps5" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">PS5</a>
                     </div>
                   </div>
                   
@@ -35,11 +35,11 @@
                     </button>
                   
                     <div class="absolute right-0 mt-1 bg-white text-gray-800 rounded shadow-lg py-2 px-2 hidden group-hover:flex flex-col z-50">
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Action</a>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Adventure</a>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">RPG</a>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Sports</a>
-                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Strategy</a>
+                      <a routerLink="/action" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Action</a>
+                      <a routerLink="/adventure" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Adventure</a>
+                      <a routerLink="/rpg" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">RPG</a>
+                      <a routerLink="sports" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Sports</a>
+                      <a routerLink="strategy" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Strategy</a>
                     </div>
                   </div>
                   
@@ -51,24 +51,30 @@
                     <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
                 </button>
                 
-                <div class="relative group">
-                    <button class="flex items-center space-x-2 hover:text-blue-200 transition">
-                      <div class="w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center">
-                        <i class="fas fa-user text-blue-800"></i>
-                      </div>
-                      <span class="hidden md:inline">Account</span>
-                    </button>
-                  
-                    <div class="absolute right-0 mt-1 bg-white text-gray-800 rounded shadow-lg py-2 w-48 hidden group-hover:flex flex-col z-50">
-                      <a routerLink='/login' routerLinkActive="router-link-active"  class="block px-4 py-2 hover:bg-gray-100" id="login-btn">Login</a>
-                      <a routerLink='/register' class="block px-4 py-2 hover:bg-gray-100" id="register-btn">Register</a>
-                      <div id="user-menu" class="hidden">
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">My Games</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
-                      </div>
-                    </div>
-                  </div>
+                <!-- Inside navbar -->
+<div class="relative group">
+  <button class="flex items-center space-x-2 hover:text-blue-200 transition">
+    <div class="w-8 h-8 rounded-full bg-blue-200 flex items-center justify-center">
+      <i class="fas fa-user text-blue-800"></i>
+    </div>
+    <span class="hidden md:inline">
+      {{ user?.username || 'Account' }}
+    </span>
+    
+  </button>
+
+  <div class="absolute right-0 mt-1 bg-white text-gray-800 rounded shadow-lg py-2 w-48 hidden group-hover:flex flex-col z-50">
+    <a *ngIf="!user" routerLink='/login' class="block px-4 py-2 hover:bg-gray-100">Login</a>
+    <a *ngIf="!user" routerLink='/register' class="block px-4 py-2 hover:bg-gray-100">Register</a>
+    
+    <ng-container *ngIf="user">
+      <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profile (ID: {{ user.username }})</a>
+      <a href="#" class="block px-4 py-2 hover:bg-gray-100">My Games</a>
+      <a href="#" (click)="logout()" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
+    </ng-container>
+  </div>
+</div>
+
                   
                 
                 <button id="mobile-menu-button" class="md:hidden">
@@ -81,7 +87,7 @@
         <div id="mobile-menu" class="hidden md:hidden gradient-bg px-4 pb-4">
             <a href="#" class="block py-2 hover:text-blue-200">Home</a>
             <a routerLink='/games' class="block py-2 hover:text-blue-200">Games</a>
-            <a routerLink='/consoles' class="block py-2 hover:text-blue-200">Consoles</a>
+            <a class="block py-2 hover:text-blue-200">Consoles</a>
             <a href="#about" class="block py-2 hover:text-blue-200">About</a>
             <div class="pt-2">
                 <button class="w-full text-left py-2 flex justify-between items-center" id="mobile-categories-btn">

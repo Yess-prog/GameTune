@@ -1,42 +1,64 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
+import { NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+interface LoginResponse {
+  success: boolean;
+  user?: {
+    username: string;
+    role: 'admin' | 'user';
+  };
+  message?: string;
+}
 
 @Component({
   selector: 'app-login',
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports:[RouterLink]
+  imports: [RouterLink,NgIf,FormsModule]
 })
 export class LoginComponent {
-  credentials = { username: '', password: '' };
+  credentials = { username: '', pwd: '' };
   isLoading = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login() {
+  submitLogin() {
+    if (!this.credentials.username || !this.credentials.pwd) {
+      alert('Please fill in all fields.');
+      return;
+    }
+  
     this.isLoading = true;
-
-    this.http.post<{ token: string; role: string }>('http://localhost:3000/login', this.credentials)
-      .subscribe({
-        next: (response) => {
-          localStorage.setItem('token', response.token);
-
-          if (response.role === 'admin') {
+  
+    this.http.post<any>('http://localhost:3000/login', this.credentials).subscribe({
+      next: (response) => {
+        if (response.user) {
+          const { username, role } = response.user;
+          alert(`Welcome back, ${username}!`);
+    
+          if (role === 'admin') {
             this.router.navigate(['/admin']);
+          } else if (role === 'user') {
+            this.router.navigate(['/']);
           } else {
-            this.router.navigate(['']);
+            alert('Unknown role: ' + role);
           }
-
-          alert(`Welcome ${this.credentials.username}!`);
-        },
-        error: (error) => {
-          alert('Login failed: ' + error.error.message);
-        },
-        complete: () => {
-          this.isLoading = false;
+        } else {
+          alert('Login failed: ' + (response.message || 'Invalid credentials'));
         }
-      });
+      },
+      error: (error) => {
+        alert('Login error: ' + (error.error?.message || 'Unknown error'));
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
+    
   }
+  
 }

@@ -1,7 +1,8 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { GameServiceService } from '../services/game-service.service';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -18,11 +19,17 @@ export class HomeComponent implements OnInit {
     }
     games: any[] = [];
     
-      constructor(private gameService: GameServiceService) {}
+      constructor(private gameService: GameServiceService,private router:Router,private cartService : CartService) {}
     
       ngOnInit() {
         this.gameService.getAllGames().subscribe((data) => {
           this.games = data.slice(0,4);
         });
+      }
+      gotogame( id:number){
+        this.router.navigate(["/description",id]);
+      }
+      addToCart(game: any) {
+        this.cartService.addToCart(game);
       }
 }
