@@ -3,10 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../services/auth-service.service';
 
 interface LoginResponse {
   success: boolean;
   user?: {
+    idU:number;
     username: string;
     role: 'admin' | 'user';
   };
@@ -24,7 +26,7 @@ export class LoginComponent {
   credentials = { username: '', pwd: '' };
   isLoading = false;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router,private auth:AuthService) {}
 
   submitLogin() {
     if (!this.credentials.username || !this.credentials.pwd) {
@@ -34,30 +36,24 @@ export class LoginComponent {
   
     this.isLoading = true;
   
-    this.http.post<any>('http://localhost:3000/login', this.credentials).subscribe({
-      next: (response) => {
-        if (response.user) {
-          const { username, role } = response.user;
-          alert(`Welcome back, ${username}!`);
-    
-          if (role === 'admin') {
-            this.router.navigate(['/admin']);
-          } else if (role === 'user') {
-            this.router.navigate(['/']);
-          } else {
-            alert('Unknown role: ' + role);
-          }
+    this.http.post<LoginResponse>('http://localhost:3000/login', this.credentials, { withCredentials: true })
+  .subscribe({
+    next: (response) => {
+      if (response.user) {
+        this.auth.setUser(response.user); // <--- Set user here
+
+        if (response.user.role === 'admin') {
+          this.router.navigate(['/admin']);
         } else {
-          alert('Login failed: ' + (response.message || 'Invalid credentials'));
+          this.router.navigate(['/']);
         }
-      },
-      error: (error) => {
-        alert('Login error: ' + (error.error?.message || 'Unknown error'));
-      },
-      complete: () => {
-        this.isLoading = false;
+      } else {
+        alert('Login failed: ' + (response.message || 'Invalid credentials'));
       }
-    });
+    },
+    // ...
+  });
+
     
   }
   

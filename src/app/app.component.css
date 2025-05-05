@@ -44,3 +44,9 @@
 }
 .dropdown:hover .dropdown-content {
     display: block;}
+.marg{
+    margin-top: 20px;
+}
+.nom{
+    color: #7c3aed;
+}

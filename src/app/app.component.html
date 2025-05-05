@@ -26,7 +26,7 @@
                     </div>
                   </div>
                   
-                <a href="#about" class="hover:text-blue-200 transition">About</a>
+                
                 
                 <div class="relative group">
                     <button class="hover:text-blue-200 transition flex items-center">
@@ -46,10 +46,13 @@
             </div>
             
             <div class="flex items-center space-x-4">
-                <button id="cart-button" class="relative">
-                    <i class="fas fa-shopping-cart text-xl"></i>
-                    <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
-                </button>
+              <button id="cart-button" class="relative" (click)="toggleCart()">
+                <i class="fas fa-shopping-cart text-xl"></i>
+                <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {{ cartItems.length }}
+                </span>
+              </button>
+             
                 
                 <!-- Inside navbar -->
 <div class="relative group">
@@ -64,15 +67,19 @@
   </button>
 
   <div class="absolute right-0 mt-1 bg-white text-gray-800 rounded shadow-lg py-2 w-48 hidden group-hover:flex flex-col z-50">
+    <!-- Show Login/Register links when not logged in -->
     <a *ngIf="!user" routerLink='/login' class="block px-4 py-2 hover:bg-gray-100">Login</a>
     <a *ngIf="!user" routerLink='/register' class="block px-4 py-2 hover:bg-gray-100">Register</a>
     
+    <!-- Show Profile, My Games, and Logout when logged in -->
     <ng-container *ngIf="user">
-      <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profile (ID: {{ user.username }})</a>
-      <a href="#" class="block px-4 py-2 hover:bg-gray-100">My Games</a>
+      <a href="#" *ngIf="user.role=='admin'"  class="block px-4 py-2 hover:bg-gray-100">User : {{user.idU}}</a>
+      <a href="#" *ngIf="user.role=='admin'" class="block px-4 py-2 hover:bg-gray-100" routerLink="/admin">Admin Space</a>
       <a href="#" (click)="logout()" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
     </ng-container>
   </div>
+  
+  
 </div>
 
                   
@@ -80,7 +87,22 @@
                 <button id="mobile-menu-button" class="md:hidden">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
+                <br>
+                
             </div>
+        </div>
+        <div *ngIf="cartVisible"  class="absolute right-0 mt-2 w-64 bg-white border border-gray-300 rounded shadow-lg z-50 p-4 " >
+          <h3 class="font-semibold text-lg mb-2" >Your Cart</h3>
+          <div *ngIf="cartItems.length === 0" class="text-gray-500">Cart is empty.</div>
+          <ul *ngIf="cartItems.length > 0">
+            <li *ngFor="let item of cartItems" class="mb-2 border-b pb-1">
+              <div class="nom">{{ item.nom }}</div>
+              <div class="text-sm text-gray-600">{{ item.prix }}</div>
+            </li>
+            <li>
+              <button (click)="pay()" class="button">Buy</button>
+            </li>
+          </ul>
         </div>
     </div>
     
@@ -102,7 +124,9 @@
                     <a href="#" class="block py-2 hover:text-blue-200">Strategy</a>
                 </div>
             </div>
+            
         </div>
+
     
 
 

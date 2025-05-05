@@ -1,19 +1,24 @@
+// cart.service.ts
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
-  private cart: any[] = [];
+  private cartItems = new BehaviorSubject<any[]>([]);
+  cartItems$ = this.cartItems.asObservable();
 
-  addToCart(game: any) {
-    this.cart.push(game);
-    console.log(this.cart);
+  addToCart(item: any) {
+    const current = this.cartItems.value;
+    this.cartItems.next([...current, item]);
+    console.log('Adding to cart:', item); // log
+    this.cartItems.next([...current, item]);
   }
 
-  getCart() {
-    return this.cart;
+  getItems() {
+    return this.cartItems.value;
   }
 
   clearCart() {
-    this.cart = [];
+    this.cartItems.next([]);
   }
 }

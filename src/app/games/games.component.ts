@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { GameServiceService } from '../services/game-service.service';
 import { NgFor, NgIf } from '@angular/common';
 import { CartService } from '../services/cart.service';
+import { Game } from '../models/game.model';
+interface game{
+
+}
 @Component({
   selector: 'app-games',
   imports: [NgFor,NgIf],
@@ -18,7 +22,7 @@ export class GamesComponent implements OnInit {
       this.games = data;
     });
   }
-  addToCart(game: any) {
+  addToCart(game: Game) {
     this.cartService.addToCart(game);
   }
 }

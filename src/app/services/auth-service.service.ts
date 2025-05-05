@@ -31,5 +31,16 @@ export class AuthService {
   logout() {
     return this.http.post('http://localhost:3000/logout', {}, { withCredentials: true });
   }
+  setUser(user: User | null) {
+    this.currentUserSubject.next(user);
+  }
+  
+  getUser(): User | null {
+    return this.currentUserSubject.value;
+  }
+  
+  isLoggedIn(): boolean {
+    return !!this.currentUserSubject.value;
+  }
   
 }
