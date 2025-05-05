@@ -51,3 +51,53 @@
     margin-right: 15%; 
     margin-left: 15%; 
   }
+  section#games {
+    padding: 2rem;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+  }
+  
+  table.gametab {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  table.gametab thead {
+    background-color: #007acc;
+    color: white;
+    text-align: left;
+  }
+  
+  table.gametab thead td {
+    padding: 1rem;
+    font-weight: bold;
+    border: none;
+    color: black;
+  }
+  
+  table.gametab tr:nth-child(even) {
+    background-color: #f2f2f2;
+    color: black;
+  }
+  
+  table.gametab td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle;
+    color: black;
+  }
+  
+  table.gametab td img {
+    color: black;
+    max-width: 60px;
+    height: auto;
+    border-radius: 5px;
+  }
+  
+  table.gametab tr:hover {
+    background-color: #e6f7ff;
+    color: black;
+  }
+  

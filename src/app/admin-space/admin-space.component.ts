@@ -1,21 +1,21 @@
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { GameServiceService } from '../services/game-service.service';
 
 @Component({
   selector: 'app-admin-space',
-  imports: [],
+  imports: [RouterLink,NgFor],
   templateUrl: './admin-space.component.html',
   styleUrl: './admin-space.component.css'
 })
 export class AdminSpaceComponent {
-  gestion=false;
-  vente=false;
-  public  toggleGetion() {
-    this.gestion=!this.gestion;
-    
-  }
-  toggleVente(){
-    this.vente=!this.vente;
-  }
+  games:any[]=[];
+   constructor(private gameService: GameServiceService) {}
+  
+    ngOnInit() {
+      this.gameService.getAllGames().subscribe((data) => {
+        this.games = data;
+      });
+    }
 }
