@@ -34,8 +34,9 @@ export class PayementComponent implements AfterViewInit {
   }
   
   async ngAfterViewInit() {
+    /* 5aliha m5obya snn mch tetb3ath 3al git 
     this.stripe = await loadStripe('pk_test_51RQRLcHCMzwyqMAByIqbx0Pgyjy0AuT9hJS56fmFx8Tl8fNXAkSZFWGTWt4iqRQFLUfPvG6S68JwLfuvDzkoSM3C00tsBGuRvf');
-    if (!this.stripe) return;
+    */if (!this.stripe) return;
 
     this.elements = this.stripe.elements();
     this.card = this.elements.create('card');
