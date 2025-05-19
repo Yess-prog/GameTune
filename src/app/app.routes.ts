@@ -17,6 +17,7 @@ import { StrategyComponent } from './strategy/strategy.component';
 import { SprotsComponent } from './sprots/sprots.component';
 import { AdventureComponent } from './adventure/adventure.component';
 import { ActionComponent } from './action/action.component';
+import { DescriptionComponent } from './description/description.component';
 export const routes: Routes = [
     {path:'app-root',component:AppComponent },
     {
@@ -68,6 +69,12 @@ export const routes: Routes = [
     },
     {
         path:'rpg',component:RpgComponent
+    },
+    {
+        path:'desc/:id',component:DescriptionComponent
+    },
+    {
+        path:'pay',component:PayementComponent
     },
 
 

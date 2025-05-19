@@ -1,77 +1,78 @@
-import { Component, OnInit } from '@angular/core';
-import { PaymentService } from '../services/payment-service.service';
-import { loadStripe } from '@stripe/stripe-js';
+import {
+  Stripe,
+  StripeElements,
+  StripeCardElement,
+  loadStripe,
+} from '@stripe/stripe-js';
+
+import { Component, AfterViewInit } from '@angular/core';
+import { User } from '../models/user.model';
 import { AuthService } from '../services/auth-service.service';
-import { Router } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { CartService } from '../services/cart.service';
+import { GameServiceService } from '../services/game-service.service';
+import { Game } from '../models/game.model';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-payement',
+  selector: 'app-payment',
   templateUrl: './payement.component.html',
-  styleUrls: ['./payement.component.css'],
-  imports : [NgIf]
+  imports:[NgIf,NgFor]
 })
-export class PayementComponent implements OnInit {
-  cardElement: any;
-  isProcessing: boolean = false;   // Add isProcessing to manage button state
-  isLoading: boolean = false;      // Manage loading state
-  paymentSuccess: boolean = false;
-  paymentError: string | null = null;
-
-  constructor(
-    private paymentService: PaymentService,
-    private authService: AuthService,
-    private router: Router
-  ) {}
-
-  ngOnInit() {
-    if (true) {
-      this.router.navigate(['/login']);
-    }
-
-    // Initialize Stripe Elements
-    loadStripe('pk_test_YOUR_PUBLISHABLE_KEY').then((stripe) => {
-      const elements = stripe?.elements();
-      if (elements) {
-        this.cardElement = elements.create('card');
-        this.cardElement.mount('#card-element');
-      }
+export class PayementComponent implements AfterViewInit {
+  stripe: Stripe | null = null;
+  elements: StripeElements | null = null;
+  card: StripeCardElement | null = null;
+   games: any[] = [];
+  user!:User|null;
+    constructor(private gameService: GameServiceService,private cartService:CartService,private auth:AuthService) {}
+  
+   ngOnInit(): void {
+    this.user = this.auth.getUser();
+    this.cartService.getAllItems(this.user?.idU).subscribe((data) => {
+      this.games = data;
     });
   }
+  
+  async ngAfterViewInit() {
+    this.stripe = await loadStripe('pk_test_51RQRLcHCMzwyqMAByIqbx0Pgyjy0AuT9hJS56fmFx8Tl8fNXAkSZFWGTWt4iqRQFLUfPvG6S68JwLfuvDzkoSM3C00tsBGuRvf');
+    if (!this.stripe) return;
 
-  async pay() {
-    if (this.isProcessing) return;  // Prevent multiple payments at once
-    this.isProcessing = true;        // Disable the button during processing
-    this.paymentSuccess = false;     // Reset payment success state
-    this.paymentError = null;        // Reset error message
+    this.elements = this.stripe.elements();
+    this.card = this.elements.create('card');
+    this.card.mount('#card-element');
 
-    try {
-      const stripe = await loadStripe('pk_test_YOUR_PUBLISHABLE_KEY');
-      this.isLoading = true;
+    const form = document.getElementById('payment-form') as HTMLFormElement;
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+let total = 0;
+this.games.forEach(game => {
+  total += game.prixG * 100; 
+});
+      const res = await fetch('http://localhost:3000/create-payment-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: total, currency: 'usd' })
 
-      this.paymentService.createPaymentIntent(5000, 'usd').subscribe(async (res: any) => {
-        const result = await stripe?.confirmCardPayment(res.clientSecret, {
-          payment_method: {
-            card: this.cardElement,
-            billing_details: { name: 'Test User' },
-          },
-        });
-
-        this.isLoading = false;
-
-        if (result?.paymentIntent?.status === 'succeeded') {
-          this.paymentSuccess = true;
-          console.log('Payment succeeded!');
-        } else {
-          this.paymentError = 'Payment failed. Please try again.';
-        }
       });
-    } catch (error) {
-      this.isLoading = false;
-      this.paymentError = 'An error occurred during payment. Please try again.';
-      console.error(error);
-    } finally {
-      this.isProcessing = false;  // Enable button after payment attempt
-    }
+
+      const { clientSecret } = await res.json();
+
+      const { paymentIntent, error } = await this.stripe!.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: this.card!,
+        },
+      });
+
+      const message = document.getElementById('payment-message');
+      if (error) {
+        message!.textContent = error.message || 'Payment failed';
+      } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+        this.games.forEach(game => {
+  this.gameService.bought(game,this.user!.idU).subscribe();
+});
+this.cartService.clearCart(this.user!.idU).subscribe();
+        message!.textContent = 'Payment successful!';
+      }
+    });
   }
 }

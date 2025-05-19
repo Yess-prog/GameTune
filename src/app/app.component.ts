@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   cartVisible = false;
   cartItems: any[] = [];
 
-  user: User | null = null;
+  user!: User | null;
 currentUser$?: Observable<User | null>;
   constructor(private authService: AuthService, private Router: Router, private cdr: ChangeDetectorRef,private cartService: CartService) {
     
@@ -34,9 +34,7 @@ currentUser$?: Observable<User | null>;
 
   ngOnInit() {
 
-    this.cartService.cartItems$.subscribe(items => {
-      this.cartItems = items;
-    });
+    
     // Check the current session status when the app loads
     this.authService.checkSession().subscribe((response) => {
       if (response.loggedIn && response.user) {
@@ -44,19 +42,25 @@ currentUser$?: Observable<User | null>;
         this.user = response.user;
       }
     });
+    
 
     // Subscribe to the current user observable to update the navbar
     this.authService.currentUser$.subscribe(user => {
       this.user = user;
     });
-  }
+    this.cartService.getAllItems(this.user?.idU).subscribe(items=>{
+      this.cartItems=items;
+    }) ;
+   }
   pay(){
-
+    this.Router.navigate(['/pay']);
   }
   toggleCart() {
     this.cartVisible = !this.cartVisible;
     
   }
+  
+
 
 
 

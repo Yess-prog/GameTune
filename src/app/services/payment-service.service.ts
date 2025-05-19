@@ -9,4 +9,5 @@ export class PaymentService {
   createPaymentIntent(amount: number, currency: string) {
     return this.http.post('/api/create-payment-intent', { amount, currency });
   }
+  
 }

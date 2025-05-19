@@ -6,7 +6,12 @@ import { User } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+     const storedUser = localStorage.getItem('user');
+  if (storedUser) {
+    this.currentUserSubject.next(JSON.parse(storedUser));
+  }
+  }
 
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
@@ -32,11 +37,15 @@ export class AuthService {
     return this.http.post('http://localhost:3000/logout', {}, { withCredentials: true });
   }
   setUser(user: User | null) {
+    localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSubject.next(user);
+    console.log(user);
   }
   
   getUser(): User | null {
+    console.log(this.currentUserSubject.value);
     return this.currentUserSubject.value;
+
   }
   
   isLoggedIn(): boolean {

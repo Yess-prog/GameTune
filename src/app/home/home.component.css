@@ -46,4 +46,9 @@
 .sidebar-visible {
     transform: translateX(0);
 }
+.btndesc{
+    background-color: #f59e0b;
+    color: #1e3a8a;
+    border-radius: 5px 5px 5px 5px;
+}
 

@@ -43,7 +43,7 @@
                         </div>
                         <div class="flex justify-between items-center">
                             <span class="font-bold text-blue-600">{{ game.prix  }}</span>
-                            <button onclick="gotogame(game.idG)">Description</button>
+                            <button (click)="gotogame(game.idG)" class="btndesc">Description</button>
                             <button 
     class="add-to-cart bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition" 
     [attr.data-id]="game.idG" 

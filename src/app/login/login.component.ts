@@ -20,7 +20,7 @@ interface LoginResponse {
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [RouterLink,NgIf,FormsModule]
+  imports: [RouterLink,FormsModule]
 })
 export class LoginComponent {
   credentials = { username: '', pwd: '' };

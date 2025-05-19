@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 05 mai 2025 à 12:14
+-- Généré le : lun. 19 mai 2025 à 21:09
 -- Version du serveur : 10.4.32-MariaDB
--- Version de PHP : 8.0.30
+-- Version de PHP : 8.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -47,7 +47,7 @@ CREATE TABLE `game` (
   `description` varchar(50) NOT NULL,
   `img` varchar(100) NOT NULL,
   `categorie` varchar(20) NOT NULL,
-  `rate` float(1,1) NOT NULL,
+  `rate` float(5,1) NOT NULL,
   `console` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -57,7 +57,7 @@ CREATE TABLE `game` (
 
 INSERT INTO `game` (`idG`, `nom`, `societe`, `prix`, `description`, `img`, `categorie`, `rate`, `console`) VALUES
 (1, 'The Witcher 3', 'CD Projekt', 39.99, 'Epic open-world RPG.', 'https://upload.wikimedia.org/wikipedia/en/0/0c/Witcher_3_cover_art.jpg', 'action', 0.0, 'xbox one'),
-(2, 'Elden Ring', 'FromSoftware', 59.99, 'Dark fantasy adventure.', 'https://upload.wikimedia.org/wikipedia/en/b/b9/Elden_Ring_Box_art.jpg', 'adventure', 0.0, 'pc'),
+(2, 'Elden Ring', 'FromSoftware', 59.99, 'Dark fantasy adventure.', 'https://upload.wikimedia.org/wikipedia/en/b/b9/Elden_Ring_Box_art.jpg', 'adventure', 4.7, 'pc'),
 (3, 'FIFA 24', 'EA Sports', 69.99, 'Football simulation game.', 'https://upload.wikimedia.org/wikipedia/en/e/e0/EA_Sports_FC_24_Cover.jpg', 'sports', 0.0, 'pc'),
 (4, 'Minecraft', 'Mojang Studios', 26.95, 'Sandbox survival world.', 'https://static.wikia.nocookie.net/awesome-games/images/5/51/Minecraft_cover.png/revision/latest?cb=2', 'adventure', 0.0, 'ps5'),
 (5, 'God of War', 'Santa Monica Studio', 49.99, 'Action-adventure epic.', 'https://upload.wikimedia.org/wikipedia/en/a/a7/God_of_War_4_cover.jpg', 'adventure', 0.0, 'ps4'),
@@ -110,6 +110,26 @@ INSERT INTO `game` (`idG`, `nom`, `societe`, `prix`, `description`, `img`, `cate
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `gamescomments`
+--
+
+CREATE TABLE `gamescomments` (
+  `id` int(11) NOT NULL,
+  `idG` int(11) NOT NULL,
+  `idU` int(11) NOT NULL,
+  `comment` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `gamescomments`
+--
+
+INSERT INTO `gamescomments` (`id`, `idG`, `idU`, `comment`) VALUES
+(1, 1, 1, 'i really liked this game , it has a kind of a mysteriously fun gameplay\r\n');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `user`
 --
 
@@ -127,7 +147,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`idU`, `nom`, `email`, `username`, `pwd`, `role`) VALUES
-(1, 'naccache', 'ssnaccache1@gmail.com', 'nacc', 'nacc', 'admin');
+(1, 'naccache', 'ssnaccache1@gmail.com', 'nacc', 'nacc', 'admin'),
+(2, 'mahdi', 'mahdi1@gmail.fr', 'mahdi', 'mahdi', 'user');
 
 -- --------------------------------------------------------
 
@@ -136,12 +157,27 @@ INSERT INTO `user` (`idU`, `nom`, `email`, `username`, `pwd`, `role`) VALUES
 --
 
 CREATE TABLE `userchart` (
-  `idU` int(11) NOT NULL,
-  `prixG` int(11) NOT NULL,
-  `idG` int(11) NOT NULL,
-  `nomG` int(11) NOT NULL,
-  `imgG` int(11) NOT NULL
+  `idU` int(11) DEFAULT NULL,
+  `prixG` float(4,2) NOT NULL,
+  `nomG` varchar(100) NOT NULL,
+  `igG` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `userchart`
+--
+
+INSERT INTO `userchart` (`idU`, `prixG`, `nomG`, `igG`) VALUES
+(2, 27.00, 'Minecraft', 4),
+(2, 39.99, 'The Witcher 3', 1),
+(2, 59.99, 'Elden Ring', 2),
+(2, 26.95, 'Minecraft', 4),
+(2, 69.99, 'FIFA 24', 3),
+(2, 59.99, 'Elden Ring', 2),
+(2, 59.99, 'Elden Ring', 2),
+(2, 69.99, 'FIFA 24', 3),
+(2, 26.95, 'Minecraft', 4),
+(2, 26.95, 'Minecraft', 4);
 
 -- --------------------------------------------------------
 
@@ -153,7 +189,8 @@ CREATE TABLE `venteadmin` (
   `idV` int(11) NOT NULL,
   `nomG` int(11) NOT NULL,
   `idG` int(11) NOT NULL,
-  `prixG` int(11) NOT NULL
+  `prixG` int(11) NOT NULL,
+  `idU` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -167,10 +204,22 @@ ALTER TABLE `game`
   ADD PRIMARY KEY (`idG`);
 
 --
+-- Index pour la table `gamescomments`
+--
+ALTER TABLE `gamescomments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`idU`);
+
+--
+-- Index pour la table `venteadmin`
+--
+ALTER TABLE `venteadmin`
+  ADD PRIMARY KEY (`idV`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -183,10 +232,22 @@ ALTER TABLE `game`
   MODIFY `idG` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
+-- AUTO_INCREMENT pour la table `gamescomments`
+--
+ALTER TABLE `gamescomments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `idU` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idU` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT pour la table `venteadmin`
+--
+ALTER TABLE `venteadmin`
+  MODIFY `idV` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

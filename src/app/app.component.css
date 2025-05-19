@@ -50,3 +50,12 @@
 .nom{
     color: #7c3aed;
 }
+.button{
+    background-color: #1e3a8a;
+    color: #f3f4f6;
+    position:relative;
+    margin-left: 15%;
+    width: 70%;
+    margin-right: 25%;
+    border-radius: 5px 5px 5px 5px;
+}

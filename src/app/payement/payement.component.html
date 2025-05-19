@@ -1,71 +1,50 @@
-<div class="payment-container">
-    <h2>Make a Payment</h2>
-  
-    <!-- Display a loading state or error message if necessary -->
-    <div *ngIf="isLoading" class="loading">
-      <p>Loading...</p>
-    </div>
-  
-    <div *ngIf="!isLoading" class="payment-form">
-      <div id="card-element">
-        <!-- Stripe Element for card input -->
+<div class="bg-gray-900 text-white min-h-screen py-10 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-3xl font-bold text-center text-purple-400 mb-10">
+      Complete Your Purchase
+    </h2>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- 🕹 Game List -->
+      <div class="lg:col-span-2">
+        <div *ngIf="games.length > 0; else noItems">
+          <div *ngFor="let game of games" class="bg-gray-800 p-4 mb-4 rounded-xl shadow hover:shadow-lg transition-all">
+            <div class="flex justify-between items-center">
+              <div>
+                <h3 class="text-lg font-semibold text-white">{{ game.nomG }}</h3>
+                <p class="text-sm text-gray-400">ID: {{ game.igG }}</p>
+              </div>
+              <span class="text-purple-300 font-bold">{{ game.prixG   }} USD</span>
+            </div>
+          </div>
+        </div>
+        <ng-template #noItems>
+          <p class="text-gray-400 text-center">Your cart is empty.</p>
+        </ng-template>
       </div>
-  
-      <button (click)="pay()" [disabled]="isProcessing">
-        Pay Now
-      </button>
-    </div>
-  
-    <div *ngIf="paymentSuccess" class="success-message">
-      <p>Payment succeeded!</p>
-    </div>
-  
-    <div *ngIf="paymentError" class="error-message">
-      <p>{{ paymentError }}</p>
+
+      <!-- 💳 Payment Section -->
+      <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
+        <h3 class="text-xl font-semibold text-purple-300 mb-4 flex items-center">
+          <i class="fas fa-credit-card mr-2 text-purple-400"></i> Payment Info
+        </h3>
+
+        <form id="payment-form" class="space-y-4">
+          <!-- Stripe Card Element -->
+          <div id="card-element" class="bg-gray-700 px-4 py-3 rounded-lg border border-gray-600 focus:ring-2 focus:ring-purple-500">
+            <!-- Stripe mounts here -->
+          </div>
+
+          <!-- Payment Message -->
+          <div id="payment-message" class="text-sm text-red-400"></div>
+
+          <!-- Submit Button -->
+          <button type="submit"
+            class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition-all pulse-animation flex items-center justify-center">
+            <i class="fas fa-bolt mr-2"></i> Pay Now
+          </button>
+        </form>
+      </div>
     </div>
   </div>
-  
-  <!-- Add your own CSS or use a framework like Bootstrap -->
-  <style>
-    .payment-container {
-      width: 400px;
-      margin: 50px auto;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-  
-    .payment-form {
-      display: flex;
-      flex-direction: column;
-    }
-  
-    .payment-form button {
-      margin-top: 20px;
-      padding: 10px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-  
-    .payment-form button:disabled {
-      background-color: #ddd;
-      cursor: not-allowed;
-    }
-  
-    .loading {
-      text-align: center;
-    }
-  
-    .success-message,
-    .error-message {
-      text-align: center;
-      margin-top: 20px;
-    }
-  
-    .error-message {
-      color: red;
-    }
-  </style>
-  
+</div>

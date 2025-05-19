@@ -1,33 +1,46 @@
 <section class="py-12 bg-gray-100">
-    <div class="container mx-auto px-4" *ngFor="let game of games">
-      <div class="bg-white rounded-lg shadow-lg p-6 md:flex">
-        <!-- Game Image -->
-        <div class="md:w-1/2 mb-6 md:mb-0">
-          <img [src]="game.img" alt="{{ game.img }}" class="w-full h-64 object-cover rounded">
-        </div>
-  
-        <!-- Game Info -->
-        <div class="md:w-1/2 md:pl-8">
-          <h2 class="text-3xl font-bold text-gray-800 mb-2">{{ game.nom }}</h2>
-          <p class="text-sm text-gray-500 mb-4">by {{ game.societe }}</p>
-          <p class="text-gray-700 mb-6">{{ game.description }}</p>
-  
-          <ul class="mb-6 text-gray-600 space-y-1">
-            <li><strong>Category:</strong> {{ game.categorie }}</li>
-            <li><strong>Console:</strong> {{ game.console }}</li>
-            <li><strong>Rating:</strong> {{ game.rate }}/5</li>
-            <li><strong>Price:</strong> <span class="text-blue-600 font-semibold">{{ game.prix }} DT</span></li>
-          </ul>
-  
-          <button (click)="addToCart(games)" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
-            Add to Cart
-          </button>
-        </div>
+  <div class="container mx-auto px-4" *ngFor="let game of games">
+    <div class="bg-white rounded-lg shadow-lg p-6 md:flex">
+      <!-- Game Image -->
+      <div class="md:w-1/2 mb-6 md:mb-0">
+        <img [src]="game.img" alt="{{ game.img }}" class="w-full h-64 object-cover rounded">
+      </div>
+
+      <!-- Game Info -->
+      <div class="md:w-1/2 md:pl-8">
+        <h2 class="text-3xl font-bold text-gray-800 mb-2">{{ game.nom }}</h2>
+        <p class="text-sm text-gray-500 mb-4">by {{ game.societe }}</p>
+        <p class="text-gray-700 mb-6">{{ game.description }}</p>
+
+        <ul class="mb-6 text-gray-600 space-y-1">
+          <li><strong>Category:</strong> {{ game.categorie }}</li>
+          <li><strong>Console:</strong> {{ game.console }}</li>
+          <li><strong>Rating:</strong> {{ game.rate }}/5</li>
+          <li><strong>Price:</strong> <span class="text-blue-600 font-semibold">{{ game.prix }} DT</span></li>
+        </ul>
+
+        <button (click)="addToCart(games)" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+          Add to Cart
+        </button>
       </div>
     </div>
-  </section>
-  
-  <section *ngIf="!games" class="py-12 bg-gray-100 text-center">
-    <h2 class="text-xl text-gray-700">Game not found. Try again later.</h2>
-  </section>
-  
+    <label for="textarea" style="color: black;">Commentaire</label><br>
+    <textarea name="comment" id="" style="width: 100%;color:black;" ></textarea><br>
+    <button  class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition" (ngModel)="comment" (click)="submitComment(game)" >
+      submit comment
+    </button>
+    <section >
+      <div class="container mx-auto px-4" *ngFor="let comment of comments" style="background-color: antiquewhite;">
+        <div>
+          {{comment.idU}}
+        </div>
+        <br>
+        <div>{{comment.comment}}</div>
+      </div>
+    </section>
+  </div>
+</section>
+
+<section *ngIf="!games" class="py-12 bg-gray-100 text-center">
+  <h2 class="text-xl text-gray-700">Game not found. Try again later.</h2>
+</section>
