@@ -63,12 +63,12 @@ export class GameServiceService {
   submitRating(id:number,idG: number, rate: number): Observable<any> {
     return this.http.post<any>(`http://localhost:3000/subRate`, { idG,id,rate });
   }
-  bought(game:Game,id : number){
-    return this.http.post<any>(`http://localhost:3000/subSale`, {
-    nomG: game.nom,
-    idG: game.id,
-    prixG: game.prix,
-    idU: id
+  bought(game: any, idU: number) {
+  return this.http.post('http://localhost:3000/SubSale', {
+    nomG: game.nomG,
+    idG: game.igG, 
+    prixG: game.prixG,
+    idU: idU
   });
-  }
+}
 }

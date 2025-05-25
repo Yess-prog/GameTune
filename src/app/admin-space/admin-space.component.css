@@ -69,7 +69,9 @@
     color: white;
     text-align: left;
   }
-  
+   html {
+    scroll-behavior: smooth;
+  }
   table.gametab thead td {
     padding: 1rem;
     font-weight: bold;

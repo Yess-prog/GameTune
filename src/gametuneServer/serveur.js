@@ -6,6 +6,7 @@ const Stripe = require('stripe');
 const cors = require('cors');
 const session = require('express-session');
 const stripe = Stripe('sk_test_51RQRLcHCMzwyqMABuXDErZLxt0x31GLAh96t8Jc6P235SxV7yVfNrJMMYLAk6mNFpeTcOtyRR164VYr1TErCjElV00hujTz7DI'); // 🔒 Secret key from Stripe dashboard
+const jwt = require('jsonwebtoken');
 
 
 const app = express();
@@ -118,6 +119,36 @@ app.post('/saveItems', (req, res) => {
     res.json({ success: true });
   });}
 });
+app.post('/deleteUser', (req, res) => {
+  const { idU } = req.body;
+  console.log(idU);
+   const query = 'delete from user where idU=?';
+   db.query(query, [idU], (err, results) => {
+    
+    console.log(results);
+
+    if (err) {
+      return res.status(500).json({ message: 'DB error', error: err });
+    }else{
+      return res.status(200).json({ message: 'user  deleted', success:true });
+    }
+  });
+});
+app.post('/deleteSale', (req, res) => {
+  const { idV } = req.body;
+  console.log(idV);
+   const query = 'delete from venteadmin where idV=?';
+   db.query(query, [idV], (err, results) => {
+    
+    console.log(results);
+
+    if (err) {
+      return res.status(500).json({ message: 'DB error', error: err });
+    }else{
+      return res.status(200).json({ message: 'sale  deleted', success:true });
+    }
+  });
+});
 app.post('/subComm', (req, res) => {
   const { idG,id, comm } = req.body;
    const query = 'insert into gamescomments(idG,idU,comment) values(?,?,?)';
@@ -157,38 +188,36 @@ app.post('/login', (req, res) => {
 });
 app.post('/subSale', (req, res) => {
   const { nomG, idG, prixG, idU } = req.body;
-console.log('Received from frontend:', { nomG, idG, prixG, idU }); 
-  const query = 'INSERT INTO  venteadmin (idU, nomG, idG, prixG) VALUES (?, ?, ?, ?)';
-  db.query(query, [nomG, idG, prixG, idU], (err, results) => {
+  console.log('Received from frontend:', { nomG, idG, prixG, idU });
+
+  const query = 'INSERT INTO venteadmin (idU, nomG, idG, prixG) VALUES (?, ?, ?, ?)';
+  const query2 = 'DELETE FROM userchart WHERE idU=?';
+
+  db.query(query, [idU, nomG, idG, prixG], (err, results) => {
     if (err) {
       console.error('DB error:', err);
       return res.status(500).json({ message: 'Database error', error: err });
     }
 
     if (results.affectedRows === 1) {
-      return res.status(200).json({ success: true, message: 'Sale recorded' });
+      db.query(query2, [idU], (err, deleteResults) => {
+        if (err) {
+          console.error('DB error:', err);
+          return res.status(500).json({ message: 'Database error', error: err });
+        }
+
+        if (deleteResults.affectedRows > 0) {
+          return res.status(200).json({ success: true, message: 'Sale recorded and cart cleared' });
+        } else {
+          return res.status(200).json({ success: true, message: 'Sale recorded but nothing to delete from cart' });
+        }
+      });
     } else {
       return res.status(400).json({ success: false, message: 'Insert failed' });
     }
   });
 });
-app.post('/clearCart', (req, res) => {
-  const {  id } = req.body;
 
-  const query = 'delete from userchart where idU=?';
-  db.query(query, [id], (err, results) => {
-    if (err) {
-      console.error('DB error:', err);
-      return res.status(500).json({ message: 'Database error', error: err });
-    }
-
-    if (results.affectedRows > 0) {
-      return res.status(200).json({ success: true, message: 'delete recorded' });
-    } else {
-      return res.status(400).json({ success: false, message: 'delete failed' });
-    }
-  });
-});
 
 app.get('/session', (req, res) => {
   if (req.session.user) {
@@ -214,6 +243,27 @@ app.get('/games', (req, res) => {
     }
   });
 });
+app.get('/Users', (req, res) => {
+  db.query('SELECT * FROM user', (err, results) => {
+    if (err) {
+      console.error('Error fetching games:', err);
+      res.status(500).json({ error: 'Internal server error' });
+    } else {
+      res.json(results);
+    }
+  });
+});
+app.get('/Sales', (req, res) => {
+  db.query('SELECT * FROM venteadmin', (err, results) => {
+    if (err) {
+      console.error('Error fetching games:', err);
+      res.status(500).json({ error: 'Internal server error' });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 
 app.get('/Items', (req, res) => {
   const {idU} = req.query;

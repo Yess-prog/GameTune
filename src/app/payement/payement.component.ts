@@ -20,6 +20,8 @@ import { NgFor, NgIf } from '@angular/common';
 })
 export class PayementComponent implements AfterViewInit {
   stripe: Stripe | null = null;
+  total = 0;
+  totalN=0;
   elements: StripeElements | null = null;
   card: StripeCardElement | null = null;
    games: any[] = [];
@@ -30,10 +32,16 @@ export class PayementComponent implements AfterViewInit {
     this.user = this.auth.getUser();
     this.cartService.getAllItems(this.user?.idU).subscribe((data) => {
       this.games = data;
+      this.loadTotal();
+      this.loadTotalNorm()
     });
+
+    
   }
   
   async ngAfterViewInit() {
+    
+    this.stripe = await loadStripe('pk_test_51RQRLcHCMzwyqMAByIqbx0Pgyjy0AuT9hJS56fmFx8Tl8fNXAkSZFWGTWt4iqRQFLUfPvG6S68JwLfuvDzkoSM3C00tsBGuRvf');
     if (!this.stripe) return;
 
     this.elements = this.stripe.elements();
@@ -43,14 +51,12 @@ export class PayementComponent implements AfterViewInit {
     const form = document.getElementById('payment-form') as HTMLFormElement;
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
-let total = 0;
-this.games.forEach(game => {
-  total += game.prixG * 100; 
-});
+
+
       const res = await fetch('http://localhost:3000/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: total, currency: 'usd' })
+        body: JSON.stringify({ amount: this.total, currency: 'usd' })
 
       });
 
@@ -67,11 +73,22 @@ this.games.forEach(game => {
         message!.textContent = error.message || 'Payment failed';
       } else if (paymentIntent && paymentIntent.status === 'succeeded') {
         this.games.forEach(game => {
+          console.log(game);
   this.gameService.bought(game,this.user!.idU).subscribe();
 });
-this.cartService.clearCart(this.user!.idU).subscribe();
+
         message!.textContent = 'Payment successful!';
       }
     });
+  }
+  loadTotal() {
+    this.games.forEach(game => {
+  this.total += game.prixG * 100; 
+});
+  }
+  loadTotalNorm() {
+    this.games.forEach(game => {
+  this.totalN += game.prixG ; 
+});
   }
 }

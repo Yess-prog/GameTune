@@ -62,21 +62,21 @@
             <!-- Navigation -->
             <nav class="flex-1 overflow-y-auto py-4">
                 <div class="px-4 space-y-2">
-                    <a routerLink='/admin' class="nav-link flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 text-white" data-page="dashboard">
+                    <a class="nav-link flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 text-white" data-page="dashboard">
                         <i class="fas fa-tachometer-alt mr-3"></i>
-                        <span class="nav-text" routerLink='/admin'>Dashboard</span>
+                        <span class="nav-text">Dashboard</span>
                     </a>
-                    <a href="#games" class="nav-link flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 text-white" >
+                    <a (click)="scrollToSection('games-admin')" class="nav-link flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 text-white" >
                         <i class="fas fa-gamepad mr-3"></i>
-                        <span class="nav-text" routerLink='/admin'>Games</span>
+                        <span class="nav-text">Games</span>
                     </a>
-                    <a href="#sales"  class="nav-link flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 text-white" >
+                    <a (click)="scrollToSection('sales')"  class="nav-link flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 text-white" >
                         <i class="fas fa-chart-line mr-3"></i>
-                        <span class="nav-text" routerLink='/admin'>Sales</span>
+                        <span class="nav-text" >Sales</span>
                     </a>
-                    <a href="#users" class="nav-link flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 text-white" >
+                    <a (click)="scrollToSection('user')" class="nav-link flex items-center px-4 py-3 rounded-lg hover:bg-indigo-700 text-white" >
                         <i class="fas fa-users mr-3"></i>
-                        <span class="nav-text" routerLink='/admin'>Users</span>
+                        <span class="nav-text" >Users</span>
                     </a>
                    
                 </div>
@@ -89,7 +89,7 @@
         <div class="main-content flex-1 overflow-y-auto ml-64">
             <!-- Header -->
             <header class="bg-white shadow-sm p-4 flex justify-between items-center">
-                <h1 class="text-2xl font-bold text-gray-800" id="pageTitle" routerLink='/admin' routerLinkActive="router-link-active" >Dashboard</h1>
+                <h1 class="text-2xl font-bold text-gray-800" id="pageTitle"  >Dashboard</h1>
                 <div class="flex items-center space-x-4">
                     
                     
@@ -98,7 +98,7 @@
             
             <!-- Dashboard Content -->
             <main class="p-6">
-                <section id="games">
+                <section id="games-admin">
                     <table class="gametab" border="1">
                         <thead class="th">
                             <td>ID</td>
@@ -126,8 +126,61 @@
                         </tr>
                     </table>
                 </section>
-                <section id="sales"></section>
-                <section id="users"></section>
+                <section id="sales">
+                    <table class="gametab" border="1">
+                        <thead class="th">
+                            <td>ID</td>
+                            <td>Jeu</td>
+                            <td>Prix</td>
+                            <td>User</td>
+                            <td></td>
+                            
+                            
+                            
+                        </thead>
+                        <tr *ngFor="let sale of ventes">
+                            <td>{{sale.idV}}</td>
+                            <td>{{sale.nomG}}</td>
+                            <td>{{sale.prixG}}</td>
+                            <td>{{sale.idU}}</td>
+                            
+                            <td><button (click)="deleteS(sale.idV)">delete</button></td>
+                            
+                            
+                            
+                            
+                        </tr>
+                    </table>
+                    
+                </section>
+                <section id="user">
+                    <table class="gametab" border="1">
+                        <thead class="th">
+                            <td>ID</td>
+                            <td>Nom</td>
+                            <td>E-mail</td>
+                            <td>username</td>
+                            <td>password</td>
+                            <td>role</td>
+                            <td colspan="2"></td>
+                            
+                            
+                            
+                        </thead>
+                        <tr *ngFor="let user of users">
+                            <td>{{user.idU}}</td>
+                            <td>{{user.nom}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.username}}</td>
+                            <td>{{user.pwd}}</td>
+                            <td>{{user.role}}</td>
+                            <td><button (click)="delete(user.idU)">delete</button></td>
+                            
+                            
+                            
+                        </tr>
+                    </table>
+                </section>
                 
                 
                 
